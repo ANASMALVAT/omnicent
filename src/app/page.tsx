@@ -18,8 +18,14 @@ export default function Home() {
     initial: { x: '-100%' }, // Off-screen to the left
     animate: { x: 0 } // On-screen
   };
+
+  const imageVariantsRight = {
+    initial: { x: '100%' }, // Off-screen to the left
+    animate: { x: 0 } // On-screen
+  };
+
   const imageTransition = {
-    duration: 1.5, // Animation duration in seconds
+    duration: 1, // Animation duration in seconds
     ease: "easeInOut" // Easing function, you can use other easing functions as well
   };
 
@@ -47,7 +53,7 @@ export default function Home() {
         animate="animate"
         variants={sentenceVariants}
         className="max-w-4xl text-5xl text-center font-bold md:text-6xl lg:text-7xl text-zinc-200">
-        Talk to your <span className="text-orange-800">PDF</span> like human.
+        Chat with your <span className="text-orange-800">PDF</span> like human.
       </motion.h1>
 
       <motion.p
@@ -55,15 +61,15 @@ export default function Home() {
         animate="animate"
         variants={sentenceVariants}
         className="mt-10 max-w-prose text-zinc-200 sm:text-lg">
-          Omnicent allows you to talk to your PDF documents. Simply upload your file and start asking questions.
+          Omnicent allows you to interact with your PDF documents. Simply upload your file and start asking questions.
       </motion.p>
 
       <Link className={buttonVariants({
         size:"lg",
-        className:"mt-5 z-10  transition-opacity duration-1000"
+        className:" hover:bg-white   mt-5 z-10  text-zinc-900 bg-zinc-200  transition-opacity duration-1000"
       })}
        href={""} target="_blank">
-        Get started <ArrowRight className=" ml-2 h-5 w-5"></ArrowRight>
+        Get started <ArrowRight className=" text-zinc-900 ml-2 h-5 w-5"></ArrowRight>
       </Link>
     </MaxWidthWrapper>
 
@@ -140,7 +146,7 @@ export default function Home() {
       className="my-8 space-y-4 pt-8 md:flex md:space-x-12 md:space-y-0">
         <li className=" md:flex-1">
           <div  className=" flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0  md:pl-0 md:pt-4"> 
-          <span className=" text-lg font-medium text-blue-300"> Step 1</span>
+          <span className=" text-lg font-medium text-red-500"> Step 1</span>
           <span className=" text-[15px] font-medium text-zinc-200"> Sign up for an account</span>
           <span className=" mt-2 text-zinc-300"> Either starting out with a free plan or choose our {' '}</span>
           <Link href={"/pricing"} className="text-blue-500 underline underline-offset-2"> pro plan</Link>
@@ -148,14 +154,14 @@ export default function Home() {
         </li>
         <li className=" md:flex-1">
           <div  className=" flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0  md:pl-0 md:pt-4"> 
-          <span className=" text-lg font-medium text-blue-300"> Step 2</span>
+          <span className=" text-lg font-medium text-red-500"> Step 2</span>
           <span className=" text-[15px] font-medium text-zinc-200"> Upload your PDF file</span>
           <span className=" mt-2 text-zinc-300"> We&apos;llprocess your file and make it ready for you to interact with.</span>
           </div>
         </li>
         <li className=" md:flex-1">
           <div  className=" flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0  md:pl-0 md:pt-4"> 
-          <span className=" text-lg font-medium text-blue-300"> Step 3</span>
+          <span className=" text-lg font-medium text-red-500"> Step 3</span>
           <span className=" text-[15px] font-medium text-zinc-200"> It&epos; that simple. Try out Omnicent today.</span>
           <span className=" mt-2 text-zinc-300"> It really takes less than a minute.</span>
           </div>
@@ -166,7 +172,7 @@ export default function Home() {
         initial="initial"
         animate={inView ? "animate" : "initial"}
         ref={ref}
-        variants={imageVariants}
+        variants={imageVariantsRight}
         transition={imageTransition}
         className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="mt-16 flow-root sm:mt-24 ">
