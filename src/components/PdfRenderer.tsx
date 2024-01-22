@@ -1,7 +1,7 @@
 "use client"
 
 
-import { ChevronDown, ChevronUp, Loader2, ZoomIn, ZoomOut} from "lucide-react";
+import { ChevronDown, ChevronUp, Loader2, RotateCw, Search} from "lucide-react";
 import {Document, Page,pdfjs} from "react-pdf";
 
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
@@ -16,6 +16,14 @@ import {  z } from "zod";
 import {zodResolver} from "@hookform/resolvers/zod"
 import { cn } from "@/lib/utils";
 import SimpleBar from "simplebar-react";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+  } from './ui/dropdown-menu'
+
+import PdfFullscreen from "./pdfFullScreen";
 
 import "simplebar-react/dist/simplebar.min.css"
 
@@ -34,11 +42,8 @@ const PdfRenderer = ({url}: PdfRendererProps) => {
     const [scale,setScale] = useState<number>(1);
     const {toast} = useToast();
     const {width ,ref} = useResizeDetector();
+    const [rotation, setRotation] = useState<number>(0);
 
-    
-
-
-    
     const CustomPageValidator = z.object({
         page:z.string().refine((num) => Number(num) > 0 && Number(num) <= numPages! )
     })
@@ -47,75 +52,102 @@ const PdfRenderer = ({url}: PdfRendererProps) => {
 
     const {register,handleSubmit,setValue,formState:{errors},} = useForm<TCustomPageValidator>({
         defaultValues:{
-            page:"1"
+            page:currentPage.toString()
         },resolver: zodResolver(CustomPageValidator)
     })
 
     const handlePageSubmit = ({page}: TCustomPageValidator) => {
-        setCurrentPage(Number(page));
+        setCurrentPage((prev) => { return Number(page)});
         setValue("page",String(page));
     }
 
-    const callZoomIn = () => {
-        if(scale < 2){
-            setScale(scale => scale + 0.25);
-        }
-    }
-    const callZoomOut = () => {
-        if(scale > 1){
-            setScale(scale => scale - 0.25);
-        }
-    }
 
     const decrementCurrentPage = () => {
         if(currentPage > 1){
             setCurrentPage(currentPage => currentPage - 1);
+            setValue("page",String(currentPage - 1));
         }
     }
+
 
     const incrementCurrentPage = () => {
         if(currentPage < numPages! ){
             setCurrentPage(currentPage => currentPage + 1);
+            setValue("page",String(currentPage + 1));
         }
     }
 
     return (
-        <div className=" w-full bg-[#F5F5F5]] rounded-md shadow flex flex-col items-center">
+        <div className=" w-full bg-[#F5F5F5] p-4 rounded-md shadow flex flex-col items-center">
             <div className=" h-14 w-full border-b border-zinc-200 flex items center justify-between">
                 <div className='flex items-center gap-2'>
-                    <Button disabled={currentPage === numPages!}  onClick={incrementCurrentPage} variant="ghost" arial-label="previous page" className=" h-8 hover:bg-transparent border border-zinc-500 hover:border hover:border-zinc-200 hover:text-zinc-100"  >
-                        <ChevronDown className="h-4 w-4 text-zinc-200 font-semibold " />
+                    <Button disabled={currentPage === numPages!}  onClick={incrementCurrentPage} variant="ghost" arial-label="previous page" className=" h-8 hover:bg-transparent border border-zinc-500 hover:border  hover:border-zinc-800 hover:text-zinc-100"  >
+                        <ChevronDown className="h-4 w-4 text-zinc-900 text-lg font-semibold " />
                     </Button>
 
                     <div className="flex items-center gap-2 ml-1 mr-1">
                         <Input {...register("page")} 
-                        className={cn("w-12 h-8",errors.page && "focus-visible:ring-red-900")}
+                        className={cn("w-12 h-8 bg-transparent border-zinc-500 text-[16px] hover:border-zinc-800 text-zinc-800",errors.page && "focus-visible:ring-red-900")}
                         onKeyDown={(e) => {
+
                             if(e.key === "Enter"){
                                 handleSubmit(handlePageSubmit)();
                             }
                         }}
-                        />
+                        >
+                        </Input>
                     </div>
-                    <p className=" text-zinc-200 text-lg space-x-1 mr-1">
+                    <p className=" text-zinc-950 text-[16px] space-x-1 mr-1 ">
                         <span>/</span>
                         <span>{numPages ?? "x"}</span>
                     </p>
 
-                    <Button disabled={currentPage <= 1} onClick={decrementCurrentPage} variant="ghost" arial-label="next page" className=" h-8 hover:bg-transparent border border-zinc-500 hover:border hover:border-zinc-200 hover:text-zinc-100"  >
-                        <ChevronUp className="h-4 w-4 text-zinc-200 font-semibold " />
+                    <Button disabled={currentPage <= 1} onClick={decrementCurrentPage} variant="ghost" arial-label="next page" className=" h-8 hover:bg-transparent border border-zinc-500 hover:border hover:border-zinc-900 hover:text-zinc-100"  >
+                        <ChevronUp className="h-4 w-4 text-zinc-900 font-semibold " />
                     </Button>
                 </div>
 
-                <div  className=" w-20  flex gap-2 justify-center items-center h-full">
-                    <Button disabled={scale === 2} onClick={callZoomIn} variant="ghost" className=" my-auto h-8 hover:bg-transparent border border-zinc-500 hover:border p-2 py-1 hover:border-zinc-200 hover:text-zinc-100">
-                        <ZoomIn className=" text-zinc-200 w-4 h-4" />
+                <div  className="  flex gap-2 justify-center items-center h-full">
+                    
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                    <Button
+                        className='gap-1.5 border border-gray-500 hover:border-gray-900 h-8 text-gray-700 ring-0 hover:bg-transparent hover:text-zinc-900  hover:bg-none'
+                        aria-label='zoom'
+                        variant='ghost'>
+                        <Search className='h-4 w-4' />
+                        {scale * 100}%
+                        <ChevronDown className='h-3 w-3 opacity-50 text-gray-200' />
                     </Button>
-                    <Button disabled={scale === 1} onClick={callZoomOut} variant="ghost" className="my-auto h-8 hover:bg-transparent border border-zinc-500 hover:border p-2 py-1 hover:border-zinc-200 hover:text-zinc-100">
-                        <ZoomOut   className="  text-zinc-200 w-4 h-4" />
-                    </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                    <DropdownMenuItem
+                        onSelect={() => setScale(1)}>
+                        100%
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                        onSelect={() => setScale(1.25)}>
+                        125%
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                        onSelect={() => setScale(1.5)}>
+                        150%
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                        onSelect={() => setScale(2)}>
+                        200%
+                    </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+                    
+                <Button onClick={() => setRotation(rotation => rotation + 90)} variant="ghost" className=" my-auto h-8 hover:bg-transparent border border-zinc-500 hover:border p-2 py-1 hover:border-zinc-900 hover:text-zinc-900">
+                    <RotateCw  className="  text-zinc-800 w-4 h-4"/>
+                </Button>
+
+                <PdfFullscreen fileUrl={url} />
 
                 </div>
+
             </div>
 
         <div className=" flex-1  w-full max-h-screen ">
@@ -139,7 +171,7 @@ const PdfRenderer = ({url}: PdfRendererProps) => {
                     }
                     onLoadSuccess={({numPages}) => setNumPages(numPages)}
                     className="max-h-full ">
-                        <Page  scale={scale} width={width ? width : 1} pageNumber={currentPage} />
+                        <Page rotate={rotation} scale={scale} width={width ? width : 1} pageNumber={currentPage} />
                     </Document>
                 </div>
             </SimpleBar>

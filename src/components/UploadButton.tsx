@@ -1,13 +1,13 @@
 "use client"
 
-import { Dialog, DialogTrigger, DialogContent } from "./dialog";
+import { Dialog, DialogTrigger, DialogContent } from "./ui/dialog";
 import { useState } from "react";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 import Dropzone from "react-dropzone"
 import { File, Cloud , Loader2} from "lucide-react";
-import { Progress } from "./progress";
+import { Progress } from "./ui/progress";
 import {useUploadThing} from "@/lib/uploadthing";
-import { useToast } from "./use-toast";
+import { useToast } from "./ui/use-toast";
 import { trpc } from "@/app/_trpc/client";
 import { useRouter } from "next/navigation";
 

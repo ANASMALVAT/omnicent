@@ -46,14 +46,14 @@ export default function Home() {
   };
 
   return (
-    <><MaxWidthWrapper className="mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center  bg-omniblack">
+    <><MaxWidthWrapper className="mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center  bg-[#3971EC]">
 
       <motion.h1 
         initial="initial"
         animate="animate"
         variants={sentenceVariants}
         className="max-w-4xl text-5xl text-center font-bold md:text-6xl lg:text-7xl text-zinc-200">
-        Chat with your <span className="text-orange-800">PDF</span> like human.
+        Chat with your <span className="text-orange-300">PDF</span> like human.
       </motion.h1>
 
       <motion.p
@@ -146,23 +146,22 @@ export default function Home() {
       className="my-8 space-y-4 pt-8 md:flex md:space-x-12 md:space-y-0">
         <li className=" md:flex-1">
           <div  className=" flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0  md:pl-0 md:pt-4"> 
-          <span className=" text-lg font-medium text-red-500"> Step 1</span>
+          <span className=" text-lg font-medium text-zinc-200"> Step 1</span>
           <span className=" text-[15px] font-medium text-zinc-200"> Sign up for an account</span>
-          <span className=" mt-2 text-zinc-300"> Either starting out with a free plan or choose our {' '}</span>
-          <Link href={"/pricing"} className="text-blue-500 underline underline-offset-2"> pro plan</Link>
+          <span className=" mt-2 text-zinc-300"> Check out our demo and choose your {' '}  <br></br><Link href={"/pricing"} className="text-blue-500 underline underline-offset-2"> pro plan</Link></span>
           </div>
         </li>
         <li className=" md:flex-1">
           <div  className=" flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0  md:pl-0 md:pt-4"> 
-          <span className=" text-lg font-medium text-red-500"> Step 2</span>
+          <span className=" text-lg font-medium text-zinc-200"> Step 2</span>
           <span className=" text-[15px] font-medium text-zinc-200"> Upload your PDF file</span>
-          <span className=" mt-2 text-zinc-300"> We&apos;llprocess your file and make it ready for you to interact with.</span>
+          <span className=" mt-2 text-zinc-300"> We&apos;ll process your file and make it ready for you to interact with.</span>
           </div>
         </li>
         <li className=" md:flex-1">
           <div  className=" flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0  md:pl-0 md:pt-4"> 
-          <span className=" text-lg font-medium text-red-500"> Step 3</span>
-          <span className=" text-[15px] font-medium text-zinc-200"> It&epos; that simple. Try out Omnicent today.</span>
+          <span className=" text-lg font-medium text-zinc-200"> Step 3</span>
+          <span className=" text-[15px] font-medium text-zinc-200"> It&apos; that simple. Try out omniGPT today.</span>
           <span className=" mt-2 text-zinc-300"> It really takes less than a minute.</span>
           </div>
         </li>
