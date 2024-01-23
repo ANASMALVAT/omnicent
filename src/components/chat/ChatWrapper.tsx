@@ -6,6 +6,7 @@ import Message from "./Messages";
 import { ChevronLeft, Loader2, XCircle } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "../ui/button";
+import { ChatContextProvider } from "@/app/context/ChatContext";
 
 interface ChatWrapperProps {
     fileId: string
@@ -16,7 +17,6 @@ const  ChatWrapper = ({fileId}: ChatWrapperProps) => {
         fileId
     },{
         refetchInterval: (data) =>  data?.status === "SUCCESS" || data?.status === "FAILED" ? false : 500
-        
     })
 
     if (isLoading)
@@ -65,19 +65,6 @@ const  ChatWrapper = ({fileId}: ChatWrapperProps) => {
             <h3 className='font-semibold text-xl'>
               Too many pages in PDF
             </h3>
-            {/* <p className='text-zinc-500 text-sm'>
-              Your{' '}
-              <span className='font-medium'>
-                {isSubscribed ? 'Pro' : 'Free'}
-              </span>{' '}
-              plan supports up to{' '}
-              {isSubscribed
-                ? PLANS.find((p) => p.name === 'Pro')
-                    ?.pagesPerPdf
-                : PLANS.find((p) => p.name === 'Free')
-                    ?.pagesPerPdf}{' '}
-              pages per PDF.
-            </p> */}
             <Link
               href='/dashboard'
               className={buttonVariants({
@@ -89,19 +76,19 @@ const  ChatWrapper = ({fileId}: ChatWrapperProps) => {
             </Link>
           </div>
         </div>
-
         <ChatInput isDisabled />
       </div>
     )
 
     return (
+      <ChatContextProvider fileId={fileId}>
         <div className="relative min-h-full bg-zinc-950 divide-y divide-zinc-800  flex-col justify-between">
             <div className="flex-1 justify-between flex flex-col mb-28 ">
                 <Message />
             </div>
             <ChatInput />
-
         </div>
+      </ChatContextProvider>
     )
 
 }

@@ -83,13 +83,15 @@ const UploadDropZone = () => {
 
 
         const key = fileResponse?.key;
-
+        
+        
         if(!key){
             uploadIssue();
         }
 
         clearInterval(progressInterval)
         setUploadProgress(100);
+        
         startPolling({key});
         
         }} >

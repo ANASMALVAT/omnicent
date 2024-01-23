@@ -97,8 +97,7 @@ deleteFile: privateProcedure.input( z.object({id: z.string()}))
 }),
 
 getFileUploadStatus: privateProcedure.input(z.object({fileId: z.string()})).query(async ({input,ctx}) => {
-    const {userId} = ctx;
-
+    const {userId} = ctx;    
     const file = await db.file.findFirst
     ({
         where:{
@@ -108,6 +107,7 @@ getFileUploadStatus: privateProcedure.input(z.object({fileId: z.string()})).quer
     })
 
     if(!file) return {status: "PENDING" as const}
+    
     return {status: file.fileStatus};
 })
 
