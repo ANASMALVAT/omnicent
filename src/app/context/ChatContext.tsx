@@ -53,8 +53,8 @@ export const ChatContextProvider = ({fileId, children} : Props) => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setMessage(e.target.value);
-      };
-
+        
+    };
 
     return (
         <ChatContext.Provider
