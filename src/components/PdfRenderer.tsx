@@ -78,7 +78,7 @@ const PdfRenderer = ({url}: PdfRendererProps) => {
     }
 
     return (
-        <div className=" w-full bg-[#F5F5F5] p-4 rounded-md shadow flex flex-col items-center">
+        <div className=" w-full bg-[#F5F5F5]  rounded-md shadow flex flex-col items-center">
             <div className=" h-14 w-full border-b border-zinc-200 flex items center justify-between">
                 <div className='flex items-center gap-2'>
                     <Button disabled={currentPage === numPages!}  onClick={incrementCurrentPage} variant="ghost" arial-label="previous page" className=" h-8 hover:bg-transparent border border-zinc-500 hover:border  hover:border-zinc-800 hover:text-zinc-100"  >
