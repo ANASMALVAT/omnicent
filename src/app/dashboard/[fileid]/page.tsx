@@ -37,7 +37,7 @@ const Page = async ({params} : pageProps) => {
         <div className='flex-1 justify-between flex flex-col h-[calc(100vh-3.5rem)]'>
         <div className='mx-auto w-full max-w-8xl grow lg:flex xl:px-2'>
           <div className='flex-1 xl:flex'>
-            <div className='px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6'>
+            <div className='px-2 py-3 sm:px-2 lg:pl-3 xl:flex-1 xl:pl-3'>
               <PdfRenderer url={file.url} />
             </div>
           </div>
