@@ -12,7 +12,7 @@ export const Navbar = () => {
                 <div className=" flex h-14 items-center justify-between border-b border-zinc-200">
                         <Link href={"/"}
                         className="flex text-gray-950  z-40 font-semibold">
-                            <span>omniGPT</span>
+                            <span>omnicent</span>
                         </Link>
                     <div className="  items-center space-x-4 sm:flex">
                         <>

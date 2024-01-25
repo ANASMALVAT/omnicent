@@ -46,13 +46,13 @@ export default function Home() {
   };
 
   return (
-    <><MaxWidthWrapper className="mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center  bg-[#3971EC]">
+    <><MaxWidthWrapper className="mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center  bg-transparent">
 
       <motion.h1 
         initial="initial"
         animate="animate"
         variants={sentenceVariants}
-        className="max-w-4xl text-5xl text-center font-bold md:text-6xl lg:text-7xl text-zinc-200">
+        className="max-w-4xl text-5xl text-center font-bold md:text-6xl lg:text-7xl text-white">
         Chat with your <span className="text-orange-300">PDF</span> like human.
       </motion.h1>
 
@@ -60,7 +60,7 @@ export default function Home() {
         initial="initial"
         animate="animate"
         variants={sentenceVariants}
-        className="mt-10 max-w-prose text-zinc-200 sm:text-lg">
+        className="mt-10 max-w-prose text-white sm:text-lg">
           Omnicent allows you to interact with your PDF documents. Simply upload your file and start asking questions.
       </motion.p>
 

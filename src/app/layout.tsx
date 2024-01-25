@@ -25,7 +25,7 @@ export default function RootLayout({
       <Providers>
         <body 
         className={cn(`
-        min-h-screen  bg-zinc-200 font-sans antialiased grainy`,inter.className)}
+        min-h-screen  bg-zinc-950 font-sans antialiased grainy`,inter.className)}
         >
           <Toaster/>
           <Navbar />
